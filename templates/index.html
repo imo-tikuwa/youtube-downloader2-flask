@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}youtube-downloader2-flask{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+    <h1>youtube-downloader2-flask</h1>
+    </div>
+    <form action="/" method="post">
+        <!-- {{ wtf.quick_form(form) }} -->
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.youtube_id) }}
+        {{ form.dlfmt.label }}
+        {{ wtf.form_field(form.dlfmt) }}
+        {{ wtf.form_field(form.thumb_second) }}
+        {{ wtf.form_field(form.submit) }}
+    </form>
+</div>
+{% endblock %}}

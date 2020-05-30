@@ -19,7 +19,10 @@ downloader = importlib.import_module("youtube-downloader2.app")
 
 
 # ffmpegチェック
-downloader.check_ffmpeg()
+check_result = downloader.check_ffmpeg()
+if not check_result:
+    logger.error('ffmpegの解決に失敗しました。')
+    sys.exit(1)
 
 
 # 定数

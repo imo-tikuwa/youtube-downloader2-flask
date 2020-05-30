@@ -82,6 +82,15 @@ def index():
         else:
             stream_title = downloader.get_stream_title_by_download_history(youtube_id)
 
+        # 動画タイトルが稀に「YouTube」となってしまうことがある模様
+        # 動画の取得に失敗したとみなす
+        if stream_title == 'YouTube':
+            logger.error('動画タイトルの取得に失敗しました。')
+            return render_template('index.html', form=form, youtube_id=youtube_id, dlfmt=dlfmt, thumb_second=thumb_second)
+
+        # ダウンロード済みの動画情報をyoutube-downloader2/downloaded/.jsonに記録
+        downloader.add_download_history(youtube_id, stream_title)
+
         # ダウンロードフォーマットで処理を切り分け
         if dlfmt == 'mp3':
             convert_result = downloader.convert_mp4_to_mp3(stream_title, thumb_second)

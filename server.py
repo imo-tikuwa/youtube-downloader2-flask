@@ -11,8 +11,8 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import SubmitField, StringField, RadioField, IntegerField
 from wtforms.validators import Required
-# 入力値の正規表現チェック
-import re
+# 動画URLのパース
+import urllib.parse
 # ハイフン付きのソースをインポートするには以下のようにする必要がある？
 import importlib
 downloader = importlib.import_module("youtube-downloader2.app")
@@ -67,6 +67,11 @@ def index():
         logger.info("動画ID or 動画URL：{0}".format(youtube_id))
         logger.info("ダウンロードフォーマット：{0}".format(dlfmt))
         logger.info("MP3にアルバムアートとして埋め込むサムネイル画像を動画から取得する際の秒数：{0}".format(thumb_second))
+        if youtube_id.startswith('https://'):
+            qs = urllib.parse.urlparse(youtube_id).query
+            qs_d = urllib.parse.parse_qs(qs)
+            youtube_id = qs_d['v'][0]
+            logger.info("動画URLから抽出した動画ID：{0}".format(youtube_id))
 
         # 動画ダウンロード or ダウンロード済みの動画からタイトル取得
         if not downloader.is_exist_movie(youtube_id):

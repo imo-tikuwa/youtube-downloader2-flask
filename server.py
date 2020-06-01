@@ -9,10 +9,12 @@ from logzero import logger
 from flask import Flask, render_template, send_file
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import SubmitField, StringField, RadioField, IntegerField
+from wtforms import SubmitField, StringField, RadioField, IntegerField, ValidationError
 from wtforms.validators import Required
 # 動画URLのパース
 import urllib.parse
+# 正規表現チェック
+import re
 # ハイフン付きのソースをインポートするには以下のようにする必要がある？
 import importlib
 downloader = importlib.import_module("youtube-downloader2.app")
@@ -49,7 +51,20 @@ class YoutubeDownloadForm(FlaskForm):
     youtube_id = StringField('動画ID or 動画URL', validators=[Required()])
     dlfmt = RadioField('ダウンロードフォーマット', validators=[Required()], choices = [('mp4', 'MP4'), ('mp3', 'MP3')], default='mp4')
     thumb_second = IntegerField('MP3にアルバムアートとして埋め込むサムネイル画像を動画から取得する際の秒数', default='1')
-    submit = SubmitField('Submit')
+    submit = SubmitField('ダウンロード')
+
+    def validate_youtube_id(self, youtube_id):
+        """
+        動画ID or 動画URL
+        入力値チェック
+        """
+        if youtube_id.data.startswith('https://www.youtube.com/'):
+            return
+
+        if re.fullmatch(r'[a-zA-Z0-9_-]+', youtube_id.data):
+            return
+
+        raise ValidationError("不正な値が入力されています")
 
 
 @app.route('/', methods=['GET', 'POST'])

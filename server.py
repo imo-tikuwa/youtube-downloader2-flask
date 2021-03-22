@@ -30,7 +30,7 @@ if not check_result:
 # 定数
 LOG_DIR = 'log' + os.sep
 LOG_FILE = LOG_DIR + 'application.log'
-DOWNLOADED_DIR = 'youtube-downloader2' + os.sep + 'downloaded' + os.sep
+DOWNLOADED_DIR = os.path.abspath(os.curdir) + os.sep + 'youtube-downloader2' + os.sep + 'downloaded' + os.sep
 
 
 # ログファイル

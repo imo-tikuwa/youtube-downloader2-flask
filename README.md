@@ -49,8 +49,7 @@ chmod +w /var/run/uwsgi
 ```
 
 ---
-uwsgiを--iniオプションを指定して起動(cdしてからじゃないとserverモジュールが見つからないってエラーが出る？？)
+uwsgiを--iniオプションを指定して起動
 ```
-cd /usr/local/youtube-downloader2-flask
 /usr/local/youtube-downloader2-flask/venv/bin/uwsgi --ini /usr/local/youtube-downloader2-flask/uwsgi.ini &
 ```

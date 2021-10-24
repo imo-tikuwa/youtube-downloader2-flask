@@ -1,1 +1,3 @@
 log/application.log
+downloaded/*
+!downloaded/.json

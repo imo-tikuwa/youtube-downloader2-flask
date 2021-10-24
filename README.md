@@ -51,7 +51,5 @@ chmod +w /var/run/uwsgi
 ---
 uwsgiを--iniオプションを指定して起動
 ```
-/usr/local/youtube-downloader2-flask/venv/bin/uwsgi --ini /usr/local/youtube-downloader2-flask/uwsgi.ini
+/usr/local/youtube-downloader2-flask/venv/bin/uwsgi --ini /usr/local/youtube-downloader2-flask/uwsgi.ini &
 ```
-
-起動スクリプトやnginxの設定は各自で。

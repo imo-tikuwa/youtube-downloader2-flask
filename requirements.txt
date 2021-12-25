@@ -16,7 +16,7 @@ logzero==1.5.0
 MarkupSafe==1.1.1
 packaging==20.3
 pyparsing==2.4.7
-pytube==11.0.1
+pytube==11.0.2
 six==1.14.0
 typing-extensions==3.7.4.2
 visitor==0.1.3
